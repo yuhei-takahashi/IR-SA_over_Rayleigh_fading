@@ -1,4 +1,4 @@
-#include "sa-decoding.h"
+#include "communication_set.h"
 
 // This function randomly structures edges connecting slots and devices
 void structure_edge(Frame& str_frame, vector<Device>& f_device, RandomNumberGenerator& seed1, RandomNumberGenerator& seed2, Dist& dist, Channel& ch)
