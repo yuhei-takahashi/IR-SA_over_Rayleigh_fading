@@ -1,6 +1,6 @@
 #include "ir-sa_configuration.h"
 
-// This function randomly structures edges connecting slots and devices
+/* This function randomly structures edges connecting slots and devices */
 void structure_edge(Frame& str_frame, vector<Device>& f_device, RandomNumberGenerator& seed1, RandomNumberGenerator& seed2, Dist& dist, Channel& ch)
 {
     
@@ -54,7 +54,7 @@ void structure_edge(Frame& str_frame, vector<Device>& f_device, RandomNumberGene
     
 }
 
-// This function defines the number of devices and structures a frame with a large number of slots.
+/* This function defines the number of devices and structures a frame with a large number of slots. */
 void structure_frame(Frame& str_frame, double g)
 {
     
@@ -67,28 +67,28 @@ void structure_frame(Frame& str_frame, double g)
     
 }
 
-// This function indicates which devices are connected to which slots. The slots also show a similar association. By default, this function is commented out.
+/* This function indicates which devices are connected to which slots. The slots also show a similar association. By default, this function is commented out. */
 void display(Frame& sc_frame, vector<Device>& f_device, double g)
 {
   
-    cout << "device" << endl;
+    cout << "device" << '\n';
     for(int i=0; i<number_slot*g; i++)
     {
         list<Edge>::iterator d;
         for(d = f_device[i].d_edge.begin(); d != f_device[i].d_edge.end(); d++)
         {
-            cout << "device(" << i << ")"<<  " - " <<  "slot:" << d->position << endl;
+            cout << "device(" << i << ")"<<  " - " <<  "slot:" << d->position << '\n';
         }
     }
     
-    cout << "slot" << endl;
+    cout << "slot" << '\n';
     int count = 0;
     for(int j=0; j<sc_frame.time_slot; j++)
     {
         list<Edge>::iterator e;
         for(e = sc_frame.f_slot[j].s_edge.begin(); e != sc_frame.f_slot[j].s_edge.end(); e++)
         {
-            cout << "slot(" << count << ")" << " - " << "device:" << e->position <<  endl;
+            cout << "slot(" << count << ")" << " - " << "device:" << e->position <<  '\n';
         }
         count++;
     }
@@ -97,7 +97,7 @@ void display(Frame& sc_frame, vector<Device>& f_device, double g)
     
 }
 
-// This function calls several functions related to structure edges.
+/* This function calls several functions related to structure edges. */
 void frame(Frame& sc_frame, vector<Device>& f_device, double g, RandomNumberGenerator& seed1, RandomNumberGenerator& seed2, Dist& dist, Channel& ch)
 {
     
@@ -105,11 +105,11 @@ void frame(Frame& sc_frame, vector<Device>& f_device, double g, RandomNumberGene
     
     structure_edge(sc_frame, f_device, seed1, seed2, dist, ch);
     
-    //  display(sc_frame, f_device, g);
+    /* display(sc_frame, f_device, g); */
     
 }
 
-// Inter-SIC function
+/* Inter-SIC function */
 void cancellation_slot(int device, int slot, Frame& sc_frame)
 {
     int device_number = device;
@@ -135,7 +135,7 @@ void successive_interference_cancellation(Frame& sc_frame, vector<Device>& f_dev
     for(int ic=0;; ic++)
     {
 
-        count2=count1; // If count2 equals count1, this function performs a break.
+        count2=count1; /* If count2 equals count1, this function performs a break. */
         
         for(int j=0; j<sc_frame.time_slot; j++)
         {
@@ -163,7 +163,7 @@ void successive_interference_cancellation(Frame& sc_frame, vector<Device>& f_dev
                         }
                         ch.snr = sinr/ir;
                         
-                        // If the device successfully decodes using intra-SIC, it enters the (if) segments.
+                        /* If the device successfully decodes using intra-SIC, it enters the (if) segments. */
                         if(ch.set_epsilon() <1)
                         {
                             device_number = ds->position;
@@ -186,7 +186,7 @@ void successive_interference_cancellation(Frame& sc_frame, vector<Device>& f_dev
     
 }
 
-// This function calculates the packet error ratio.
+/* This function calculates the packet error ratio. */
 double per(Frame& sc_frame, vector<Device>& f_device, int d)
 {
     double error=0;
@@ -203,14 +203,14 @@ double per(Frame& sc_frame, vector<Device>& f_device, int d)
     
 }
 
-// Convert the degree distribution from an edge-perspective to a node-perspective.
+/* Convert the degree distribution from an edge-perspective to a node-perspective. */
 void file_input(Dist& dist,char c[])
 {
     
     ifstream inputfile(c);
     if(!inputfile)
     {
-        cout << "Failed to read the file" << endl;
+        cout << "Failed to read the file" << '\n';
     }
     int DL;
     int DR;
@@ -222,12 +222,12 @@ void file_input(Dist& dist,char c[])
     for(int i=0; i<DL; i++)
     {
         inputfile >> l_degree[i] >> l_coef[i];
-        cout << l_degree[i] << " " << l_coef[i] << endl;
+        cout << l_degree[i] << " " << l_coef[i] << '\n';
         lsum+=(l_coef[i]/(l_degree[i]+1));
     }
     for(int i=0; i<DL; i++)
     {
-        cout << l_degree[i]+1 << " " << (l_coef[i]/(l_degree[i]+1))/lsum << endl;
+        cout << l_degree[i]+1 << " " << (l_coef[i]/(l_degree[i]+1))/lsum << '\n';
         dist.add_Ledge(l_degree[i]+1, (l_coef[i]/(l_degree[i]+1))/lsum);
     }
     
@@ -235,20 +235,20 @@ void file_input(Dist& dist,char c[])
     
 }
 
-// This function indicates multiple values. By default, this function is commented out.
+/* This function indicates multiple values. By default, this function is commented out. */
 void file_output(vector<double>& all_error, vector<double>& loss_trans, Channel& ch, char c[])
 {
     
     ofstream outputfile(c);
-    outputfile << "SNR " << SNR << "dB"<< endl;
-    outputfile << "packet length " << ch.n << endl;
-    outputfile << "code rate " << ch.R << endl;
-    outputfile << "slot " << number_slot << endl;
-    outputfile << "G PLR " << endl;
+    outputfile << "SNR " << SNR << "dB"<< '\n';
+    outputfile << "packet length " << ch.n << '\n';
+    outputfile << "code rate " << ch.R << '\n';
+    outputfile << "slot " << number_slot << '\n';
+    outputfile << "G PLR " << '\n';
     vector<double>::iterator b = loss_trans.begin();
     for(vector<double>::iterator a = all_error.begin(); a != all_error.end();a++)
     {
-        outputfile << *b << " " <<  *a << endl;
+        outputfile << *b << " " <<  *a << '\n';
         b++;
     }
     outputfile.close();
@@ -258,11 +258,11 @@ void file_output(vector<double>& all_error, vector<double>& loss_trans, Channel&
 
 int main(int argc, char* argv[])
 {
-    number_slot = atoi(argv[1]); // This variable sorts the number you type for the first time
+    number_slot = atoi(argv[1]); /* This variable sorts the number you type for the first time. */
     Dist dist;
-    file_input(dist, argv[2]); // it sorts your degree distribution.
+    file_input(dist, argv[2]); /* It sorts your degree distribution. */
     
-    double trans=3; // You can adjust the max-range of the offered traffic value.
+    double trans=3; /* You can adjust the max-range of the offered traffic value. */
     
     double packet_error_ratio = 0;
     vector<double> all_error;
@@ -272,7 +272,7 @@ int main(int argc, char* argv[])
     RandomNumberGenerator seed2;
     RandomNumberGenerator seed3;
     Channel ch;
-    cout<< "G"<<" PLR"<< endl;
+    cout<< "G"<<" PLR"<< '\n';
     for(;;)
     {
         packet_error_ratio = 0;
@@ -293,7 +293,7 @@ int main(int argc, char* argv[])
         
         all_error.push_back(packet_error_ratio/ite);
         loss_trans.push_back(trans);
-        cout<< packet_error_ratio/ite << endl;
+        cout<< packet_error_ratio/ite << '\n';
         
         if(trans <= (double)(0)) break;
         trans-=0.05;
