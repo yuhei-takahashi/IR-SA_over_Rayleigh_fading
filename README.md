@@ -1,15 +1,4 @@
 
-# Abstract
-
-#あとで書く
-
-# Instructions
-
-#あとで書く
-
-# Demo
-
-#あとで書く
 
 # How to cite
 
