@@ -4,7 +4,7 @@
 
 If you extend or use this work, please cite the [paper](https://ieeexplore.ieee.org/document/10266359) where it was introduced:
 ```
-@ARTICLE{10266359,
+@ARTICLE{Takahashi2023Irregular,
   author={Takahashi, Yuhei and Song, Guanghui and Kimura, Tomotaka and Cheng, Jun},
   journal={IEEE Access}, 
   title={Irregular Repetition Slotted ALOHA Over Rayleigh Block Fading Channels: Bounds and Threshold Saturation via Spatial Coupling}, 
